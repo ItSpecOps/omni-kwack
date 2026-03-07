@@ -4,6 +4,7 @@
 
 plugins {
     `java-library`
+    `application`
     `maven-publish`
 }
 
@@ -88,6 +89,11 @@ java {
     toolchain {
         languageVersion = JavaLanguageVersion.of(25)
     }
+}
+
+application {
+    applicationName = "omni-kwack"
+    mainClass.set("io.kcache.kwack.KwackMain") 
 }
 
 publishing {

@@ -54,7 +54,7 @@ To create a standard installation zip or tar archive (like the ones found on the
 ```bash
 ./gradlew assemble
 ```
-Alternatively, to install the application into a local directory (build/install/kwack/) for immediate use:
+Alternatively, to install the application into a local directory (build/install/omni-kwack/) for immediate use:
 
 ```bash
 ./gradlew installDist
@@ -65,12 +65,12 @@ Alternatively, to install the application into a local directory (build/install/
 Note that omni-kwack requires Java 17 or higher. 
 
 To run omni-kwack from a pre-built release, download a release, and unpack it.
-Then change to the kwack-${version} directory and run the following to see the command-line options:
+Then change to the omni-kwack-${version} directory and run the following to see the command-line options:
 
 ```bash
-$ bin/kwack -h
+$ bin/omni-kwack -h
 
-Usage: kwack [-hV] [-t=<topic>]... [-p=<partition>]... [-b=<broker>]...
+Usage: omni-kwack [-hV] [-t=<topic>]... [-p=<partition>]... [-b=<broker>]...
              [-m=<ms>] [-F=<config-file>] [-o=<offset>] [-k=<topic=serde>]...
              [-v=<topic=serde>]... [-r=<url>] [-q=<query>] [-a=<attr>]...
              [-d=<db>] [-X=<prop=val>]...
@@ -136,14 +136,14 @@ Registry. Then run the following:
 
 ```bash
 # Run with properties file
-$ bin/kwack -F config/kwack.properties
+$ bin/omni-kwack -F config/kwack.properties
 ```
 
 Starting omni-kwack is as easy as specifying a Kafka broker, topic, and Schema Registry URL:
 
 ```bash
-$ bin/kwack -b mybroker -t mytopic -r http://schema-registry-url:8081
-Welcome to kwack!
+$ bin/omni-kwack -b mybroker -t mytopic -r http://schema-registry-url:8081
+Welcome to omni-kwack!
 Enter "!help" for usage hints.
 
       ___(.)>
@@ -156,7 +156,7 @@ When omni-kwack starts, it will enter interactive mode, where you can enter SQL 
 to analyze Kafka data.  For non-interactive mode, specify a query on the command line:
 
 ```bash
-$ bin/kwack -b mybroker -t mytopic -r http://schema-registry-url:8081 -q "SELECT * FROM mytopic"
+$ bin/omni-kwack -b mybroker -t mytopic -r http://schema-registry-url:8081 -q "SELECT * FROM mytopic"
 ```
 
 The output of the above command will be in JSON, and so can be piped to other commands like jq.
@@ -165,19 +165,19 @@ One can load multiple topics, and then perform a query that joins the resulting 
 column:
 
 ```bash
-$ bin/kwack -b mybroker -t mytopic -t mytopic2 -r http://schema-registry-url:8081 -q "SELECT * FROM mytopic JOIN mytopic2 USING (col1)"
+$ bin/omni-kwack -b mybroker -t mytopic -t mytopic2 -r http://schema-registry-url:8081 -q "SELECT * FROM mytopic JOIN mytopic2 USING (col1)"
 ```
 
 One can convert Kafka data into Parquet format by using the COPY commmand in DuckDB:
 
 ```bash
-$ bin/kwack -b mybroker -t mytopic -r http://schema-registry-url:8081 -q "COPY mytopic to 'mytopic.parquet' (FORMAT 'parquet')"
+$ bin/omni-kwack -b mybroker -t mytopic -r http://schema-registry-url:8081 -q "COPY mytopic to 'mytopic.parquet' (FORMAT 'parquet')"
 ```
 
 If not using Confluent Schema Registry, one can pass an external schema:
 
 ```bash
-$ bin/kwack -b mybroker -t mytopic -v mytopic=proto:@/path/to/myschema.proto
+$ bin/omni-kwack -b mybroker -t mytopic -v mytopic=proto:@/path/to/myschema.proto
 ```
 
 For a given schema, omni-kwack will create DuckDB columns based on
