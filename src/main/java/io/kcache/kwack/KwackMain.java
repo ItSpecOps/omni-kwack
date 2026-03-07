@@ -31,7 +31,7 @@ import java.util.jar.Attributes;
 import java.util.jar.Manifest;
 import java.util.stream.Collectors;
 
-@Command(name = "kwack", mixinStandardHelpOptions = true,
+@Command(name = "omni-kwack", mixinStandardHelpOptions = true,
     versionProvider = KwackMain.ManifestVersionProvider.class,
     description = "In-Memory Analytics for Kafka using DuckDB.",
     sortOptions = false, sortSynopsis = false)
@@ -102,6 +102,17 @@ public class KwackMain implements Callable<Integer> {
     @Option(names = {"-r", "--schema-registry-url"},
         description = "SR (Schema Registry) URL", paramLabel = "<url>")
     private String schemaRegistryUrl;
+
+    @Option(names = {"-P", "--polymorphic"},
+        arity = "0..1",
+        defaultValue = "expand",
+        fallbackValue = "expand",
+        description = "Handle polymorphic topics. Modes:\n"
+            + "  expand (add columns to one table) |\n"
+            + "  route  (table per schema)\n"
+            + "  Default: expand",
+        paramLabel = "<mode>")
+    private KwackConfig.PolymorphicMode polymorphicMode;
 
     @Option(names = {"-q", "--query"},
         description = "SQL query to execute. If none is specified, interactive sqlline mode is used",
@@ -222,11 +233,11 @@ public class KwackMain implements Callable<Integer> {
         } else {
             props.put(KwackConfig.SCHEMA_REGISTRY_URL_CONFIG, MOCK_SR);
         }
-        if (properties != null) {
-            props.putAll(properties);
-        }
         if (polymorphicMode != null) {
             props.put(KwackConfig.POLYMORPHIC_MODE_CONFIG, polymorphicMode.toString());
+        }
+        if (properties != null) {
+            props.putAll(properties);
         }
         return new KwackConfig(props);
     }
@@ -264,9 +275,9 @@ public class KwackMain implements Callable<Integer> {
                     if (isApplicableManifest(manifest)) {
                         Attributes attr = manifest.getMainAttributes();
                         return new String[]{
-                            "kwack - In-Memory Analytics for Kafka using DuckDB",
-                            "https://github.com/rayokota/kwack",
-                            "Copyright (c) 2024, Robert Yokota",
+                            "omni-kwack - In-Memory Analytics for Kafka using DuckDB",
+                            "https://github.com/ItSpecOps/omni-kwack",
+                            "Copyright (c) 2026, Lars Warratz (based on work by Robert Yokota)",
                             "Version " + get(attr, "Implementation-Version")
                         };
                     }
