@@ -1,12 +1,46 @@
-.idea
+### Gradle ###
+.gradle/
+build/
+# Ignore Gradle GUI config
+gradle-app.setting
+# Always commit the wrapper jar
+!gradle/wrapper/gradle-wrapper.jar
+
+### IntelliJ IDEA ###
+.idea/
+*.iws
 *.iml
+*.ipr
+out/
+# If you use IntelliJ's built-in HTTP client
+.idea/httpRequests/
+
+### Visual Studio Code ###
+.vscode/
+*.code-workspace
+
+### Eclipse ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+bin/
+
+### Maven ###
 lib_managed
 src_managed
 target
-*.ipr
-*.iws
-*.swp
-.DS_Store
 dependency-reduced-pom.xml
+
+### Testing & Reporting ###
 htmlReport
+
+### Application Runtime Output ###
 logs
+
+### OS-specific ###
+.DS_Store
+Thumbs.db
+*.swp
