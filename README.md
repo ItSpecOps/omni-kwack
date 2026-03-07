@@ -12,7 +12,7 @@
 > * Upgraded to run on **Java 25**.
 > * Build system migrated to **Gradle (Kotlin DSL)** instead of Maven.
 
-kwack supports in-memory analytics for Kafka data using DuckDB.
+omni-kwack supports in-memory analytics for Kafka data using DuckDB.
 
 ## Prerequisites
 
@@ -24,7 +24,7 @@ kwack supports in-memory analytics for Kafka data using DuckDB.
 
 ## Development & Building from Source
 
-Since this fork uses Gradle (Kotlin DSL), you can easily build kwack from source.
+Since this fork uses Gradle (Kotlin DSL), you can easily build omni-kwack from source.
 
 ### 1. Build the Project
 Run the following command in the project root to compile the code and run tests:
@@ -35,7 +35,7 @@ Run the following command in the project root to compile the code and run tests:
 
 ### 2. Run kwack Directly via Gradle
 
-You can run kwack without installing it by passing command-line arguments through Gradle. For example, to see the help message:
+You can run omni-kwack without installing it by passing command-line arguments through Gradle. For example, to see the help message:
 
 ```bash
 ./gradlew run --args="-h"
@@ -62,9 +62,9 @@ Alternatively, to install the application into a local directory (build/install/
 
 ## Getting Started
 
-Note that kwack requires Java 17 or higher. 
+Note that omni-kwack requires Java 17 or higher. 
 
-To run kwack from a pre-built release, download a release, and unpack it.
+To run omni-kwack from a pre-built release, download a release, and unpack it.
 Then change to the kwack-${version} directory and run the following to see the command-line options:
 
 ```bash
@@ -127,7 +127,7 @@ In-Memory Analytics for Kafka using DuckDB.
   -V, --version                     Print version information and exit.
 ```
 
-kwack shares many command-line options with [kcat](https://github.com/edenhill/kcat) (formerly kafkacat).
+omni-kwack shares many command-line options with [kcat](https://github.com/edenhill/kcat) (formerly kafkacat).
 In addition, a file containing configuration properties can be used.  The available configuration properties 
 are listed [here](https://github.com/rayokota/kwack/blob/master/src/main/java/io/kcache/kwack/KwackConfig.java).
 
@@ -139,7 +139,7 @@ Registry. Then run the following:
 $ bin/kwack -F config/kwack.properties
 ```
 
-Starting kwack is as easy as specifying a Kafka broker, topic, and Schema Registry URL:
+Starting omni-kwack is as easy as specifying a Kafka broker, topic, and Schema Registry URL:
 
 ```bash
 $ bin/kwack -b mybroker -t mytopic -r http://schema-registry-url:8081
@@ -152,7 +152,7 @@ Enter "!help" for usage hints.
 jdbc:duckdb::memory:>
 ```
 
-When kwack starts, it will enter interactive mode, where you can enter SQL queries 
+When omni-kwack starts, it will enter interactive mode, where you can enter SQL queries 
 to analyze Kafka data.  For non-interactive mode, specify a query on the command line:
 
 ```bash
@@ -180,7 +180,7 @@ If not using Confluent Schema Registry, one can pass an external schema:
 $ bin/kwack -b mybroker -t mytopic -v mytopic=proto:@/path/to/myschema.proto
 ```
 
-For a given schema, kwack will create DuckDB columns based on
+For a given schema, omni-kwack will create DuckDB columns based on
 the appropriate Avro, Protobuf, or JSON Schema as follows:
 
 |Avro | Protobuf | JSON Schema | DuckDB |
@@ -207,5 +207,3 @@ the appropriate Avro, Protobuf, or JSON Schema as follows:
 |timestamp-nanos | google.protobuf.Timestamp || TIMESTAMP_NS |
 |duration | google.protobuf.Duration || INTERVAL |
 |uuid ||| UUID |
-
-For more on how to use kwack, see this [blog](https://yokota.blog/2024/07/11/in-memory-analytics-for-kafka-using-duckdb/).
