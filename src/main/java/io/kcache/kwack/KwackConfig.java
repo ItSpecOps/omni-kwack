@@ -232,6 +232,11 @@ public class KwackConfig extends KafkaCacheConfig {
             + "expand: add new columns to a single table; "
             + "route: create a separate table per schema name.";
     public static final String POLYMORPHIC_MODE_DEFAULT = "expand";
+    public static final ConfigDef.ValidString POLYMORPHIC_MODE_VALIDATOR =
+        ConfigDef.ValidString.in(
+            Arrays.stream(PolymorphicMode.values())
+                .map(PolymorphicMode::toString)
+                .toArray(String[]::new));
 
     private static final ListPropertyParser listPropertyParser = new ListPropertyParser();
     private static final MapPropertyParser mapPropertyParser = new MapPropertyParser();
@@ -404,7 +409,7 @@ public class KwackConfig extends KafkaCacheConfig {
                 TOKEN_TTL_SECS_DEFAULT,
                 ConfigDef.Importance.LOW,
                 TOKEN_TTL_SECS_DOC
-            )define(
+            ).define(
                 POLYMORPHIC_MODE_CONFIG,
                 ConfigDef.Type.STRING,
                 POLYMORPHIC_MODE_DEFAULT,
