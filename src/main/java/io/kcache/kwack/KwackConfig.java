@@ -226,6 +226,13 @@ public class KwackConfig extends KafkaCacheConfig {
     public static final int TOKEN_TTL_SECS_DEFAULT = 300;
     public static final String TOKEN_TTL_SECS_DOC = "Time-to-live for tokens.";
 
+    public static final String POLYMORPHIC_MODE_CONFIG = "polymorphic.mode";
+    public static final String POLYMORPHIC_MODE_DOC = 
+        "How to handle topics with multiple schemas. "
+            + "expand: add new columns to a single table; "
+            + "route: create a separate table per schema name.";
+    public static final String POLYMORPHIC_MODE_DEFAULT = "expand";
+
     private static final ListPropertyParser listPropertyParser = new ListPropertyParser();
     private static final MapPropertyParser mapPropertyParser = new MapPropertyParser();
     private static final ObjectMapper objectMapper = Jackson.newObjectMapper();
@@ -397,6 +404,13 @@ public class KwackConfig extends KafkaCacheConfig {
                 TOKEN_TTL_SECS_DEFAULT,
                 ConfigDef.Importance.LOW,
                 TOKEN_TTL_SECS_DOC
+            )define(
+                POLYMORPHIC_MODE_CONFIG,
+                ConfigDef.Type.STRING,
+                POLYMORPHIC_MODE_DEFAULT,
+                POLYMORPHIC_MODE_VALIDATOR,
+                ConfigDef.Importance.MEDIUM,
+                POLYMORPHIC_MODE_DOC
             );
     }
 
@@ -523,6 +537,16 @@ public class KwackConfig extends KafkaCacheConfig {
             return name().toLowerCase(Locale.ROOT);
         }
     }
+
+    public enum PolymorphicMode {
+    EXPAND,
+    ROUTE;
+
+    @Override
+    public String toString() {
+        return name().toLowerCase(Locale.ROOT);
+    }
+}
 
     public static class Serde {
         private final SerdeType serdeType;
@@ -798,5 +822,9 @@ public class KwackConfig extends KafkaCacheConfig {
                 .collect(Collectors.toList());
             return parser.asString(entries);
         }
+    }
+
+    public PolymorphicMode getPolymorphicMode() {
+        return PolymorphicMode.valueOf(getString(POLYMORPHIC_MODE_CONFIG).toUpperCase(Locale.ROOT));
     }
 }

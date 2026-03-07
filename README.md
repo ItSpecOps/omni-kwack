@@ -120,6 +120,8 @@ In-Memory Analytics for Kafka using DuckDB.
                                       proto:<schema|@file>;msg:<name>
                                     in case multiple message types exist
   -r, --schema-registry-url=<url>   SR (Schema Registry) URL
+  -P, --polymorphic[=<mode>]        Handle polymorphic topics. 
+                                    Modes: expand, route (default: expand)
   -q, --query=<query>               SQL query to execute. If none is specified,
                                       interactive sqlline mode is used
   -a, --row-attribute=<attr>        Row attribute(s) to show:

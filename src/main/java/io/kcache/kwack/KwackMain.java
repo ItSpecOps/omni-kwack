@@ -225,6 +225,9 @@ public class KwackMain implements Callable<Integer> {
         if (properties != null) {
             props.putAll(properties);
         }
+        if (polymorphicMode != null) {
+            props.put(KwackConfig.POLYMORPHIC_MODE_CONFIG, polymorphicMode.toString());
+        }
         return new KwackConfig(props);
     }
 
