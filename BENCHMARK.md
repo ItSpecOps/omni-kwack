@@ -4,22 +4,17 @@
 
 ### Run benchmark with default record count (100,000 records):
 ```bash
-mvn test-compile exec:java -Dexec.classpathScope=test \
-  -Dexec.mainClass=io.kcache.kwack.KwackAvroReadBenchmark
+./gradlew runAvroBenchmark
 ```
 
 ### Run benchmark with fewer records (faster for testing):
 ```bash
-mvn test-compile exec:java -Dexec.classpathScope=test \
-  -Dexec.mainClass=io.kcache.kwack.KwackAvroReadBenchmark \
-  -Dexec.args="-p recordCount=1000"
+./gradlew runAvroBenchmark -Pexec.args="-p recordCount=1000"
 ```
 
 ### Run with multiple record counts:
 ```bash
-mvn test-compile exec:java -Dexec.classpathScope=test \
-  -Dexec.mainClass=io.kcache.kwack.KwackAvroReadBenchmark \
-  -Dexec.args="-p recordCount=1000,10000,100000"
+./gradlew runAvroBenchmark -Pexec.args="-p recordCount=1000,10000,100000"
 ```
 
 ## Understanding the Output
@@ -58,9 +53,9 @@ You can customize the benchmark using JMH command-line options:
 
 ```bash
 # Run with more iterations for more accurate results
-mvn test-compile exec:java -Dexec.classpathScope=test \
-  -Dexec.mainClass=io.kcache.kwack.KwackAvroReadBenchmark \
-  -Dexec.args="-p recordCount=1000 -wi 2 -i 5"
+```bash
+./gradlew runAvroBenchmark -Pexec.args="-p recordCount=1000 -wi 2 -i 5"
+```
 ```
 
 Where:

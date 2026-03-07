@@ -69,7 +69,11 @@ dependencies {
 group = "io.kcache"
 version = "2.0.0"
 description = "kwack"
-java.sourceCompatibility = JavaVersion.VERSION_1_8
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(25)
+    }
+}
 
 publishing {
     publications.create<MavenPublication>("maven") {
@@ -83,4 +87,16 @@ tasks.withType<JavaCompile>() {
 
 tasks.withType<Javadoc>() {
     options.encoding = "UTF-8"
+}
+
+tasks.register<JavaExec>("runAvroBenchmark") {
+    group = "benchmark"
+    description = "Runs the Kwack Avro Read Benchmark"
+    classpath = sourceSets.test.get().runtimeClasspath
+    mainClass.set("io.kcache.kwack.KwackAvroReadBenchmark")
+    // Allow passing arbitrary arguments to the benchmark main class
+    // e.g., ./gradlew runAvroBenchmark -Pexec.args="-p recordCount=1000"
+    if (project.hasProperty("exec.args")) {
+        args((project.property("exec.args") as String).split(" "))
+    }
 }
