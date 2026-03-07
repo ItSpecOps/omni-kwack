@@ -32,7 +32,11 @@ io-vavr-vavr = "0.11.0"
 javax-xml-bind-jaxb-api = "2.3.1"
 org-apache-kafka-kafka-clients = "4.1.0"
 org-apache-kafka-kafka-server-common = "4.1.0"
-org-apache-kafka-kafka-v2-v13 = "4.1.0"
+org-apache-kafka-kafka-server = { module = "org.apache.kafka:kafka-server", version.ref = "org-apache-kafka-kafka-clients" }
+org-apache-kafka-kafka-raft = { module = "org.apache.kafka:kafka-raft", version.ref = "org-apache-kafka-kafka-clients" }
+org-apache-kafka-kafka-storage = { module = "org.apache.kafka:kafka-storage", version.ref = "org-apache-kafka-kafka-clients" }
+org-apache-kafka-kafka-group-coordinator = { module = "org.apache.kafka:kafka-group-coordinator", version.ref = "org-apache-kafka-kafka-clients" }
+org-apache-kafka-kafka-v2-v13 = { module = "org.apache.kafka:kafka_2.13", version.ref = "org-apache-kafka-kafka-v2-v13" }
 org-assertj-assertj-core = "3.27.6"
 org-duckdb-duckdb-jdbc = "1.4.4.0"
 org-junit-jupiter-junit-jupiter-api = "6.0.2"
@@ -77,6 +81,10 @@ io-vavr-vavr = { module = "io.vavr:vavr", version.ref = "io-vavr-vavr" }
 javax-xml-bind-jaxb-api = { module = "javax.xml.bind:jaxb-api", version.ref = "javax-xml-bind-jaxb-api" }
 org-apache-kafka-kafka-clients = { module = "org.apache.kafka:kafka-clients", version.ref = "org-apache-kafka-kafka-clients" }
 org-apache-kafka-kafka-server-common = { module = "org.apache.kafka:kafka-server-common", version.ref = "org-apache-kafka-kafka-server-common" }
+org-apache-kafka-kafka-server = { module = "org.apache.kafka:kafka-server", version.ref = "org-apache-kafka-kafka-clients" }
+org-apache-kafka-kafka-raft = { module = "org.apache.kafka:kafka-raft", version.ref = "org-apache-kafka-kafka-clients" }
+org-apache-kafka-kafka-storage = { module = "org.apache.kafka:kafka-storage", version.ref = "org-apache-kafka-kafka-clients" }
+org-apache-kafka-kafka-group-coordinator = { module = "org.apache.kafka:kafka-group-coordinator", version.ref = "org-apache-kafka-kafka-clients" }
 org-apache-kafka-kafka-v2-v13 = { module = "org.apache.kafka:kafka_2.13", version.ref = "org-apache-kafka-kafka-v2-v13" }
 org-assertj-assertj-core = { module = "org.assertj:assertj-core", version.ref = "org-assertj-assertj-core" }
 org-duckdb-duckdb-jdbc = { module = "org.duckdb:duckdb_jdbc", version.ref = "org-duckdb-duckdb-jdbc" }

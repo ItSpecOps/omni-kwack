@@ -1,4 +1,4 @@
-# kwack - In-Memory Analytics for Kafka using DuckDB
+# omni-kwack  In-Memory Analytics for Kafka using DuckDB
 
 [![Build Status][github-actions-shield]][github-actions-link]
 

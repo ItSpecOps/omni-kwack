@@ -53,9 +53,15 @@ dependencies {
     api(libs.javax.xml.bind.jaxb.api)
     testImplementation(libs.io.confluent.kafka.schema.registry)
     testImplementation(libs.org.apache.kafka.kafka.clients)
+    testImplementation(variantOf(libs.org.apache.kafka.kafka.clients) { classifier("test") })
     testImplementation(libs.org.apache.kafka.kafka.v2.v13)
-    testImplementation(libs.org.apache.kafka.kafka.v2.v13)
+    testImplementation(variantOf(libs.org.apache.kafka.kafka.v2.v13) { classifier("test") })
+    testImplementation(libs.org.apache.kafka.kafka.server)
     testImplementation(libs.org.apache.kafka.kafka.server.common)
+    testImplementation(variantOf(libs.org.apache.kafka.kafka.server.common) { classifier("test") })
+    testImplementation(libs.org.apache.kafka.kafka.raft)
+    testImplementation(libs.org.apache.kafka.kafka.storage)
+    testImplementation(libs.org.apache.kafka.kafka.group.coordinator)
     testImplementation(libs.org.scala.lang.scala.library)
     testImplementation(libs.org.assertj.assertj.core)
     testImplementation(libs.org.mockito.mockito.core)
@@ -64,11 +70,20 @@ dependencies {
     testImplementation(libs.org.junit.jupiter.junit.jupiter.params)
     testImplementation(libs.org.openjdk.jmh.jmh.core)
     testImplementation(libs.org.openjdk.jmh.jmh.generator.annprocess)
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+
+    // TODO: find way to update to 3.x version of caffeine, but for now we need to stick with 2.x
+    // Force Gradle to use the 2.x version that kcache requires
+    implementation("com.github.ben-manes.caffeine:caffeine") {
+        version {
+            strictly("2.9.3")
+        }
+    }
 }
 
 group = "io.kcache"
-version = "2.0.0"
-description = "kwack"
+version = "2.1.0"
+description = "omni-kwack"
 java {
     toolchain {
         languageVersion = JavaLanguageVersion.of(25)
@@ -87,6 +102,14 @@ tasks.withType<JavaCompile>() {
 
 tasks.withType<Javadoc>() {
     options.encoding = "UTF-8"
+}
+
+tasks.withType<Test> {
+    useJUnitPlatform() 
+    
+    testLogging {
+        events("passed", "skipped", "failed")
+    }
 }
 
 tasks.register<JavaExec>("runAvroBenchmark") {
