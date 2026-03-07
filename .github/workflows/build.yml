@@ -10,8 +10,7 @@ jobs:
 
     strategy:
         matrix:
-            # Updated to the latest Ubuntu LTS versions
-            os: [ubuntu-24.04, ubuntu-latest]
+            os: [ubuntu-22.04, ubuntu-latest]
 
     steps:
       - uses: actions/checkout@v4
