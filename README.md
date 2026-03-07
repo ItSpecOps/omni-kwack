@@ -1,9 +1,26 @@
-# omni-kwack  In-Memory Analytics for Kafka using DuckDB
+<div align="center">
+  <picture>
+    <img alt="omni-Kwack logo" src="assets/omni-kwack-logo.png" height="150">
+  </picture>
+</div>
 
-[![Build Status][github-actions-shield]][github-actions-link]
+<p align="center">
+  <em>High-performance, polymorphic ingestion from Kafka to DuckDB.</em>
+</p>
 
-[github-actions-shield]: https://github.com/rayokota/kwack/actions/workflows/build.yml/badge.svg?branch=master
-[github-actions-link]: https://github.com/rayokota/kwack/actions
+<p align="center">
+  <a href="https://github.com/ItSpecOps/omni-kwack/actions/workflows/build.yml">
+    <img src="https://img.shields.io/github/actions/workflow/status/ItSpecOps/omni-kwack/build.yml?branch=master&label=build&logo=github" alt="Build Status">
+  </a>
+  <a href="https://github.com/ItSpecOps/omni-kwack/releases/">
+    <img src="https://img.shields.io/github/v/release/ItSpecOps/omni-kwack?color=orange&logo=github" alt="Latest Release">
+  </a>
+  <a href="https://duckdb.org/">
+    <img src="https://img.shields.io/badge/powered%20by-DuckDB-yellowgreen?logo=duckdb&logoColor=white" alt="Powered by DuckDB">
+  </a>
+</p>
+
+# omni-kwack
 
 > **Note: Forked Project**
 > This repository is a fork of the original [kwack](https://github.com/rayokota/kwack) project by [rayokota](https://github.com/rayokota). 
