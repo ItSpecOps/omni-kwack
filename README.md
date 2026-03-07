@@ -1,4 +1,3 @@
-
 # kwack - In-Memory Analytics for Kafka using DuckDB
 
 [![Build Status][github-actions-shield]][github-actions-link]
@@ -6,14 +5,67 @@
 [github-actions-shield]: https://github.com/rayokota/kwack/actions/workflows/build.yml/badge.svg?branch=master
 [github-actions-link]: https://github.com/rayokota/kwack/actions
 
+> **Note: Forked Project**
+> This repository is a fork of the original [kwack](https://github.com/rayokota/kwack) project by [rayokota](https://github.com/rayokota). 
+> 
+> **Key differences in this fork:**
+> * Upgraded to run on **Java 25**.
+> * Build system migrated to **Gradle (Kotlin DSL)** instead of Maven.
+
 kwack supports in-memory analytics for Kafka data using DuckDB.
+
+## Prerequisites
+
+* **Java**: Requires Java 17 or higher (Tested with Java 25).
+* **Kafka Cluster**: Access to a Kafka broker.
+* **Schema Registry** (Optional): Highly recommended for Avro/Protobuf/JSON Schema support.
+
+---
+
+## Development & Building from Source
+
+Since this fork uses Gradle (Kotlin DSL), you can easily build kwack from source.
+
+### 1. Build the Project
+Run the following command in the project root to compile the code and run tests:
+
+```bash
+./gradlew build
+```
+
+### 2. Run kwack Directly via Gradle
+
+You can run kwack without installing it by passing command-line arguments through Gradle. For example, to see the help message:
+
+```bash
+./gradlew run --args="-h"
+```
+
+```bash
+To run interactively against a local broker:
+```
+
+./gradlew run --args="-b localhost:9092 -t mytopic -r http://localhost:8081"
+
+### 3. Create a Distributable Package
+
+To create a standard installation zip or tar archive (like the ones found on the Releases page) in build/distributions/, run:
+
+```bash
+./gradlew assemble
+```
+Alternatively, to install the application into a local directory (build/install/kwack/) for immediate use:
+
+```bash
+./gradlew installDist
+```
 
 ## Getting Started
 
 Note that kwack requires Java 17 or higher. 
 
-To run kwack, download a [release](https://github.com/rayokota/kwack/releases), unpack it.
-Then change to the `kwack-${version}` directory and run the following to see the command-line options:
+To run kwack from a pre-built release, download a release, and unpack it.
+Then change to the kwack-${version} directory and run the following to see the command-line options:
 
 ```bash
 $ bin/kwack -h
