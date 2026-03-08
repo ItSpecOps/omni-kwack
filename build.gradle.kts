@@ -72,6 +72,8 @@ dependencies {
     testImplementation(libs.org.openjdk.jmh.jmh.core)
     testImplementation(libs.org.openjdk.jmh.jmh.generator.annprocess)
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+    // gradle migration force generation of the BenchmarkList during compilation
+    testAnnotationProcessor(libs.org.openjdk.jmh.jmh.generator.annprocess)
 
     // TODO: find way to update to 3.x version of caffeine, but for now we need to stick with 2.x
     // Force Gradle to use the 2.x version that kcache requires
@@ -121,11 +123,18 @@ tasks.withType<Test> {
 tasks.register<JavaExec>("runAvroBenchmark") {
     group = "benchmark"
     description = "Runs the Kwack Avro Read Benchmark"
+    
+    // Ensure the benchmark classes and JMH metadata are compiled first
+    dependsOn(tasks.testClasses)
+    
     classpath = sourceSets.test.get().runtimeClasspath
-    mainClass.set("io.kcache.kwack.KwackAvroReadBenchmark")
-    // Allow passing arbitrary arguments to the benchmark main class
-    // e.g., ./gradlew runAvroBenchmark -Pexec.args="-p recordCount=1000"
+    mainClass.set("io.kcache.kwack.AvroBenchmark")
+    
+    // Optimized for large scale testing
     if (project.hasProperty("exec.args")) {
         args((project.property("exec.args") as String).split(" "))
+    } else {
+        // Default to a fast performance check
+        args("-p", "recordCount=1000", "-wi", "1", "-i", "2", "-f", "1")
     }
 }
